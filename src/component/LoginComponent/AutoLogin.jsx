@@ -8,7 +8,7 @@ const AutoLogin = () => {
   const navigate = useNavigate();
 
   const goToHome = () => {
-    navigate("/")
+    navigate("/main")
   }
   return (
     <div>
@@ -17,7 +17,7 @@ const AutoLogin = () => {
         <Form.Check type="checkbox" label={<span style={{ fontSize: '12px' }}>자동로그인</span>} />
         <Form.Check type="checkbox" label={<span style={{ fontSize: '12px' }}>아이디저장</span>} />
       </Form.Group>
-        <Button variant="secondary" style={{width:"30%"}} onClick={goToHome}>홈으로</Button>
+        <Button variant="secondary" style={{width:"40%"}} onClick={goToHome}>홈으로</Button>
       </div>
     </div>
   );
