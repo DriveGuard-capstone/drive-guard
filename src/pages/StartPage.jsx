@@ -77,6 +77,8 @@ const styles = {
     fontSize: '15px',
     color: 'red',
     marginLeft: '5px', 
+    position: 'relative', // 텍스트 위치 조정
+    top: '8px', // position과 top 두가지 속성 변경 2024.11.08
   },
   button: {
     width: 'auto', 
