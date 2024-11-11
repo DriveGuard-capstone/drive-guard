@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import logo from"../image/new_logo.png"
+import logo from"../image/icons8-매질-96.png"
 import "../css/MainPage.css"
 
 const SplashScreen = () => {
@@ -21,6 +21,7 @@ const SplashScreen = () => {
     visible && (
       <div className='splash-container'>
         <img src={logo} alt='logo' className='splash-logo'/>
+        <h1 className='splash-logo' style={{textAlign:"center"}}>DMA</h1>
       </div>
     )
   )

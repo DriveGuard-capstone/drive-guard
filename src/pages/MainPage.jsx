@@ -10,9 +10,18 @@ const MainPage = () => {
 
   return (
     <div style={{ width: "100%", height: "100vh" }}>
-      <MainLogo />
-      <MainLogin />
-      <PlatformStart />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "90vh",
+        }}
+      >
+        <MainLogo />
+        <MainLogin />
+        <PlatformStart />
+      </div>
     </div>
   );
 };
