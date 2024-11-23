@@ -1,66 +1,153 @@
-.logo-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.logo{
-  
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
 }
 
-.title{
-
+.autoLogin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
 }
 
-.login-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 2rem;
+.platform-start-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.autoLogin-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: 0.5rem;
+.kakao-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3c1e1e; 
+  background-color: #fee500; 
+  border: none;
+  border-radius: 8px; 
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.platform-start-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
+/* 로고 스타일 */
+.kakao-logo {
+  width: 20px;
+  height: 20px;
+}
+
+/* 호버 효과 */
+.kakao-button:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); 
+}
+
+/* 클릭 효과 */
+.kakao-button:active {
+  transform: translateY(0); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 
+.naver-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white; 
+  background-color: #03c75a; 
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 로고 스타일 */
+.naver-logo {
+  width: 20px;
+  height: 20px;
+}
+
+/* 호버 효과 */
+.naver-button:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); 
+}
+
+/* 클릭 효과 */
+.naver-button:active {
+  transform: translateY(0); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .kakao-button {
+    font-size: 14px; 
+    padding: 10px 16px; 
+  }
+  .kakao-logo {
+    width: 16px;
+    height: 16px; 
+  }
+  .naver-button {
+    font-size: 14px;
+    padding: 10px 16px; 
+  }
+  .naver-logo {
+    width: 16px;
+    height: 16px; 
+  }
+}
 
 .splash-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff; /* 배경색 */
-    z-index: 9999;
-  }
-  
-  .splash-logo {
-    width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; 
+  z-index: 9999;
+}
+
+.splash-logo {
+  width: 200px;
+  opacity: 0;
+  animation: fadeIn 5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
     opacity: 0;
-    animation: fadeIn 5s ease-in-out forwards;
+    transform: scale(0.8);
   }
-  
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1); }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
+}
