@@ -3,7 +3,7 @@ import React from 'react'
 const MyPage = () => {
   return (
     <div>
-      my page
+      my page page
     </div>
   )
 }
