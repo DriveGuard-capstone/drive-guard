@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../css/Register.css";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  
+
   const navigate = useNavigate();
   const goToHome = () => {
     navigate("/main");
   };
+  const goToLogin = () => {
+    navigate("/login")
+  }
   return (
     <div className="register-container">
       <div className="display-center">
@@ -38,7 +49,7 @@ const Register = () => {
             <Button className="button-primary" onClick={goToHome}>
               홈으로
             </Button>
-            <Button className="button-primary" type="submit">
+            <Button className="button-primary" type="submit"  onClick={goToLogin}>
               회원가입
             </Button>
           </div>

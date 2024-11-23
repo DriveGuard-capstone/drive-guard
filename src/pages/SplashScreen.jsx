@@ -11,7 +11,7 @@ const SplashScreen = () => {
     // 5초 후 메인 페이지로 ㅣ동
     const timer = setTimeout(() => {
       setVisible(false);
-      navigate("/main"); // 메인 페이지 경로로 이동
+      navigate("/guide"); // 메인 페이지 경로로 이동
     }, 5000);
 
     return () => clearTimeout(timer);

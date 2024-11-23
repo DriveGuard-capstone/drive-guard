@@ -8,18 +8,22 @@ import StartPage from './pages/StartPage';
 import SplashScreen from './pages/SplashScreen';
 import GuidePage from './pages/GuidePage';
 import HomePage from './pages/HomePage';
+import DriveHabit from './pages/DriveHabit';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
     <div >
       <Routes>
         <Route path='/' element={<SplashScreen />}/>
+        <Route path='/guide' element={<GuidePage />} />
         <Route path='/main' element={<MainPage />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/register' element={<Register />} />
-        <Route path='/StartPage' element={<StartPage />} />
-        <Route path='/guide' element={<GuidePage />} />
         <Route path='/home' element={<HomePage />} />
+        <Route path='/start-page' element={<StartPage />} />
+        <Route path='/recharts' element={<DriveHabit />} />
+        <Route path='/mypage' element={<MyPage />}/>
       </Routes>
 
     </div>
