@@ -8,17 +8,29 @@ import homeBackground_2 from '../ms_image/homeBackground_2.jpg';
 import startMonitoringBackground from '../ms_image/startMonitoringBackground.jpg';
 import driveHabitBackground from '../ms_image/driveHabitBackground.jpg';
 import { useNavigate } from 'react-router-dom'; 
+import { CloseButton } from 'react-bootstrap';
+import clossButton from '../ms_image/closeButton.png';
 
 const HomePage = () => {  
 
-    const [showMenuBar, setShowMenuBar] = useState(true);
+    const [showMenuBar, setShowMenuBar] = useState(true); // 하단 메뉴바
     const [lastScrollY, setLastScrollY] = useState(0); // 스크롤 위치 파악..
+    const [leftMenuOpen, setLeftMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setLeftMenuOpen(!leftMenuOpen);
+    }
 
     const navigate = useNavigate();
 
     const handleStartMonitoringClick = () => {
         navigate('/start-page'); 
     };
+
+    const applicationClick = () => {
+        navigate('/guide'); 
+    };
+
 
     const handleMyPageClick = () => {
         navigate('/mypage'); 
@@ -47,6 +59,14 @@ const HomePage = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, [lastScrollY]);
+
+    useEffect(() => {
+        if (leftMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [leftMenuOpen]);
 
     return (
         <div style={styles.container}>
@@ -78,7 +98,7 @@ const HomePage = () => {
                         <div style={styles.line}></div>
 
                         <div style={styles.noticeButtonContainer}>
-                            <button style={styles.firstNoticeButton}>⚬ 애플리케이션 소개 〉 </button>
+                            <button style={styles.firstNoticeButton} onClick={applicationClick}>⚬ 애플리케이션 소개 〉 </button>
                             <button style={styles.secondNoticeButton}>⚬ 프로젝트 팀 소개 〉 </button>
                         </div>
                         
@@ -98,11 +118,27 @@ const HomePage = () => {
                 }}>
                     {/* <div style={styles.line}></div> */}
                     <div style={styles.buttonContainer}>
-                        <button style={styles.menuButton}></button>
+                        <button style={styles.menuButton} onClick={toggleMenu}></button>
                         <button style={styles.homeButton}></button>
                         <button style={styles.mypageButton} onClick={handleMyPageClick}></button>
                     </div>
                 </div>
+
+                {/* 왼쪽 메뉴 나타나게 */}
+                <div
+                style={{
+                    ...styles.leftMenu,
+                    ...(leftMenuOpen ? styles.leftMenuOpen : {}), // 상태에 따라 스타일 변경
+                }}
+                >
+                <button onClick={toggleMenu} style={{ width: '25px', height: '25px', borderRadius: '5px', backgroundImage: `url(${clossButton})`,margin: '10px', cursor: 'pointer', backgroundPosition: 'center', backgrounSize: 'cover', }}></button>
+                <ul style={{ listStyle: 'none', padding: '20px' }}>
+                    <li style={styles.mainText}>DMA Project</li>
+                    <li style={styles.secondText}></li>
+                    
+                </ul>
+                <div style={styles.line}></div>
+            </div>
             
             
         </div>
@@ -122,14 +158,7 @@ const styles = {
         // backgroundImage: `url(${homeBackground_1})`
         overflowY: 'auto', // 스크롤 가능
     },
-    // scrollContainer: {
-    //     overflowY: 'auto', // 스크롤 가능
-    //     flex: 1,
-    //     display: 'flex',
-    //     flexDirection: 'column',
-    //     alignItems: 'center', // 수평 중앙 정렬
-    //     // touchAction: 'none', // 확대,축소 불가능
-    // },
+    
     titleContainer: {
         display: 'flex',
         flexDirection: 'row',
@@ -236,21 +265,7 @@ const styles = {
         backgroundSize: 'contain', 
         backgroundPosition: 'center', 
     },
-    // startMonitoringContainer: {
-    //     marginTop: '40px',
-    //     width: '300px',
-    //     height: '300px',
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     backgroundColor: '#FFFFFF',
-    //     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-    //     // backgroundImage: `url(${startMonitoringBackground})`,
-    //     display: 'flex',
-    //     backgroundSize: 'cover',
-    //     backgroundPosition: 'center',
-    //     borderRadius: '20px',
-
-    // },
+    
     startMonitoringBackgroundbox: {
         flexDirection: 'column',
         width: '100%',
@@ -349,6 +364,21 @@ const styles = {
         color: '#000000',
         marginLeft: '30px',
         
+    },
+    leftMenu: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '250px', 
+        height: '100vh', 
+        backgroundColor: '#ffffff',
+        boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
+        transform: 'translateX(-100%)', // 초기 상태: 화면 밖
+        transition: 'transform 0.3s ease', // 애니메이션 효과
+        zIndex: 100, // 메뉴가 다른 요소 위로 오도록(메인화면 위에 나타나게)
+    },
+    leftMenuOpen: {
+        transform: 'translateX(0)', // 화면 안으로 나타남
     },
 }
 
