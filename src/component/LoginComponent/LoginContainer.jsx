@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../../css/MainPage.css";
+import { alignPropType } from "react-bootstrap/esm/types";
+import api from "../../utils/api";
 
 const LoginContainer = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
   const goToHome = () => {
     navigate("/main");
   };
 
-  const loginUser = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    console.log("eeee");
-    navigate("/home");
+    try {
+      const response = await api.post("/user/login", { email, password });
+      console.log("rrrr", response);
+    } catch (error) {}
   };
   return (
     <Form
@@ -23,15 +30,23 @@ const LoginContainer = () => {
         flexDirection: "column",
         alignItems: "center",
       }}
-      onSubmit={(event) => loginUser(event)}
+      onSubmit={handleLogin}
     >
       <Form.Group className="mb-1 loginbox" controlId="formGroupEmail">
         <Form.Label></Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          onChange={(event) => setEmail(event.target.value)}
+        />
       </Form.Group>
       <Form.Group className="mb-1" controlId="formGroupPassword">
         <Form.Label></Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
       </Form.Group>
       <div
         style={{

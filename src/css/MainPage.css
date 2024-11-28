@@ -131,7 +131,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff; 
+  /*background-color: #ffffff;  */
+  background-image: url('../ms_image/roadBackground.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   z-index: 9999;
 }
 
