@@ -9,7 +9,8 @@ import startMonitoringBackground from '../ms_image/startMonitoringBackground.jpg
 import driveHabitBackground from '../ms_image/driveHabitBackground.jpg';
 import { useNavigate } from 'react-router-dom'; 
 import { CloseButton } from 'react-bootstrap';
-import clossButton from '../ms_image/closeButton.png';
+import left_icon from '../ms_image/left_icon.png';
+import setup_icon from '../ms_image/setup_icon.png';
 
 const HomePage = () => {  
 
@@ -27,10 +28,13 @@ const HomePage = () => {
         navigate('/start-page'); 
     };
 
+    const handleSetupButtonClick = () => {
+        navigate('/setup')
+    }
+
     const applicationClick = () => {
         navigate('/guide'); 
     };
-
 
     const handleMyPageClick = () => {
         navigate('/mypage'); 
@@ -131,13 +135,22 @@ const HomePage = () => {
                     ...(leftMenuOpen ? styles.leftMenuOpen : {}), // 상태에 따라 스타일 변경
                 }}
                 >
-                <button onClick={toggleMenu} style={{ width: '25px', height: '25px', borderRadius: '5px', backgroundImage: `url(${clossButton})`,margin: '10px', cursor: 'pointer', backgroundPosition: 'center', backgrounSize: 'cover', }}></button>
+                    <div style={{ display: 'flex', alignItems: 'center', width: '100%', margin: '10px' }}>
+                    <button onClick={toggleMenu} style={{ width: '35px', height: '35px', backgroundSize: '80%', border: 'none', backgroundImage: `url(${left_icon})`, cursor: 'pointer', backgroundPosition: 'center', backgroundColor: '#FFFFFF' }}></button>
+                    <button style={{width: '25px', height: '25px', backgroundSize: 'cover', border: 'none', backgroundImage: `url(${setup_icon})`, cursor: 'pointer', backgroundPosition: 'center', backgroundColor: '#FFFFFF', marginLeft: '170px'}}
+                    onClick={handleSetupButtonClick}></button>
+                    </div>
+                
                 <ul style={{ listStyle: 'none', padding: '20px' }}>
                     <li style={styles.mainText}>DMA Project</li>
                     <li style={styles.secondText}></li>
                     
                 </ul>
                 <div style={styles.line}></div>
+                <div style={styles.noticeButtonContainer}>
+                            <button style={styles.firstNoticeButton} onClick={applicationClick}>⚬ 애플리케이션 소개 〉 </button>
+                            <button style={styles.secondNoticeButton}>⚬ 프로젝트 팀 소개 〉 </button>
+                </div>
             </div>
             
             
@@ -346,7 +359,7 @@ const styles = {
         flexDirection: 'column',
     },
     firstNoticeButton: {
-        marginTop: '5px',
+        
         backgroundColor: '#FFFFFF',
         marginLeft: '10px',
         border: 'none', // 기본 테두리는 없앰
@@ -355,14 +368,14 @@ const styles = {
         color: '#000000',
     },
     secondNoticeButton: {
-        marginTop: '5px',
+        marginTop: '15px',
         backgroundColor: '#FFFFFF',
         marginLeft: '10px',
         border: 'none', // 기본 테두리는 없앰
         // borderBottom: '1px solid gray', // 아래쪽에만 연한 회색 테두리
         fontSize: '15px',
         color: '#000000',
-        marginLeft: '30px',
+        
         
     },
     leftMenu: {
