@@ -10,6 +10,7 @@ import GuidePage from './pages/GuidePage';
 import HomePage from './pages/HomePage';
 import DriveHabit from './pages/DriveHabit';
 import MyPage from './pages/MyPage';
+import SetupPage from './pages/SetupPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/start-page' element={<StartPage />} />
         <Route path='/recharts' element={<DriveHabit />} />
         <Route path='/mypage' element={<MyPage />}/>
+        <Route path='/setup' element={<SetupPage/>}></Route>
       </Routes>
 
     </div>

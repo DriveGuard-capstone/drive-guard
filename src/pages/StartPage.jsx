@@ -1,10 +1,19 @@
 import React, { useRef, useState } from 'react';
 import cameraButtonImage from '../ms_image/cameraButtonImage.png';
+import setup_icon from '../ms_image/setup_icon.png';
+import { useNavigate } from 'react-router-dom'; 
 
 const StartPage = () => {
   const videoRef = useRef(null);
   const [isMonitoring, setIsMonitoring] = useState(false);
   const [stream, setStream] = useState(null); // 스트림을 별도로 상태로 관리
+
+  const navigate = useNavigate();
+  
+  const handleSetupButtonClick = () => {
+    navigate('/setup')
+}
+  
 
   const toggleMonitoring = async () => {
     if (isMonitoring) {
@@ -31,6 +40,8 @@ const StartPage = () => {
 
   return (
     <div style={styles.container}>
+
+      <image style={styles.setupButton} onClick={handleSetupButtonClick}></image>
       {isMonitoring && (
         <div style={styles.recordingContainer}>
           <div style={styles.redCircle}></div>
@@ -54,11 +65,22 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    
     alignItems: 'center',
     height: '100vh',
     backgroundColor: '#f5f5f5',
     position: 'relative', 
+  },
+  setupButton: {
+    width: '25px', height: '25px', 
+    backgroundSize: 'cover', 
+    border: 'none', 
+    marginTop: '20px',
+    backgroundImage: `url(${setup_icon})`, 
+    cursor: 'pointer', 
+    backgroundPosition: 'center', 
+    backgroundColor: '#FFFFFF', 
+    marginLeft: '300px'
   },
   recordingContainer: {
     display: 'flex',
@@ -72,6 +94,7 @@ const styles = {
   mainText: {
     fontSize: '30px',
     color: '#000080',
+    marginTop: '100px',
   },
   monitoringText: {
     fontSize: '15px',
