@@ -44,6 +44,10 @@ const HomePage = () => {
         navigate('/recharts'); 
     };
 
+    const handleTeamButtonClick = () => {
+        navigate('/team')
+    }
+
     const handleScroll = () => {
         const currentScrolly = window.scrollY;
 
@@ -97,7 +101,7 @@ const HomePage = () => {
                         <button style={styles.driveHabitButton} onClick={handledriveHabitClick}>운전 습관 확인하기</button>
                     </div>
 
-                    <div style={styles.noticeContainer}>
+                    {/* <div style={styles.noticeContainer}>
                         <button style={styles.noticeButton}>공지사항 〉</button>
                         <div style={styles.line}></div>
 
@@ -106,7 +110,7 @@ const HomePage = () => {
                             <button style={styles.secondNoticeButton}>⚬ 프로젝트 팀 소개 〉 </button>
                         </div>
                         
-                    </div>
+                    </div> */}
                 
                 
 
@@ -136,7 +140,7 @@ const HomePage = () => {
                 }}
                 >
                     <div style={{ display: 'flex', alignItems: 'center', width: '100%', margin: '10px' }}>
-                    <button onClick={toggleMenu} style={{ width: '35px', height: '35px', backgroundSize: '80%', border: 'none', backgroundImage: `url(${left_icon})`, cursor: 'pointer', backgroundPosition: 'center', backgroundColor: '#FFFFFF' }}></button>
+                    <button onClick={toggleMenu} style={{ width: '35px', height: '35px', backgroundSize: 'cover', border: 'none', backgroundImage: `url(${left_icon})`, cursor: 'pointer', backgroundPosition: 'center', backgroundColor: '#FFFFFF' }}></button>
                     <button style={{width: '25px', height: '25px', backgroundSize: 'cover', border: 'none', backgroundImage: `url(${setup_icon})`, cursor: 'pointer', backgroundPosition: 'center', backgroundColor: '#FFFFFF', marginLeft: '170px'}}
                     onClick={handleSetupButtonClick}></button>
                     </div>
@@ -149,7 +153,7 @@ const HomePage = () => {
                 <div style={styles.line}></div>
                 <div style={styles.noticeButtonContainer}>
                             <button style={styles.firstNoticeButton} onClick={applicationClick}>⚬ 애플리케이션 소개 〉 </button>
-                            <button style={styles.secondNoticeButton}>⚬ 프로젝트 팀 소개 〉 </button>
+                            <button style={styles.secondNoticeButton} onClick={handleTeamButtonClick}>⚬ 프로젝트 팀 소개 〉 </button>
                 </div>
             </div>
             
@@ -162,7 +166,7 @@ const styles = {
     container: {
         display: 'flex',
         width: '100%',
-        height: '130vh', // 임시로 150vh 로 지정 px로 바꿔도된다..
+        height: '120vh', // 임시로 150vh 로 지정 px로 바꿔도된다..
         flexDirection: 'column',
         alignItems: 'center',
         // backgroundSize: 'cover',  // 배경 꽉 채우고, 화면 길이가 길어지면 당연히 원본사진에서 밑으로 늘어날수밖에
