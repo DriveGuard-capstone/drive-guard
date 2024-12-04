@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import cameraButtonImage from '../ms_image/cameraButtonImage.png';
 import setup_icon from '../ms_image/setup_icon.png';
 import { useNavigate } from 'react-router-dom'; 
+import left_icon from '../ms_image/left_icon.png'
 
 const StartPage = () => {
   const videoRef = useRef(null);
@@ -12,7 +13,10 @@ const StartPage = () => {
   
   const handleSetupButtonClick = () => {
     navigate('/setup')
-}
+  }
+  const handleLeftButtonClick = () => {
+    navigate(-1)
+  }
   
 
   const toggleMonitoring = async () => {
@@ -41,7 +45,11 @@ const StartPage = () => {
   return (
     <div style={styles.container}>
 
-      <image style={styles.setupButton} onClick={handleSetupButtonClick}></image>
+      <div style={styles.topContainer}>
+        <div style={styles.leftButton} onClick={handleLeftButtonClick}></div>
+        <image style={styles.setupButton} onClick={handleSetupButtonClick}></image>
+      </div>
+      
       {isMonitoring && (
         <div style={styles.recordingContainer}>
           <div style={styles.redCircle}></div>
@@ -65,22 +73,42 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    
     alignItems: 'center',
     height: '100vh',
     backgroundColor: '#f5f5f5',
     position: 'relative', 
   },
+  topContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    // justifyContent: 'space-between',
+    width: '100%',
+    height: '60px',
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+  },
+  leftButton: {
+    width: '40px',
+    height: '40px',
+    border: 'none',
+    backgroundImage: `url(${left_icon})`,
+    backgroundPosition: 'center', 
+    backgroundSize: 'cover',
+    backgroundColor: '#f5f5f5',
+    marginLeft: '20px',
+    marginTop: '10px',
+  },
   setupButton: {
-    width: '25px', height: '25px', 
+    width: '30px', 
+    height: '30px', 
     backgroundSize: 'cover', 
     border: 'none', 
-    marginTop: '20px',
+    marginTop: '10px',
     backgroundImage: `url(${setup_icon})`, 
     cursor: 'pointer', 
     backgroundPosition: 'center', 
-    backgroundColor: '#FFFFFF', 
-    marginLeft: '300px'
+    backgroundColor: '#f5f5f5', 
+    marginLeft: '260px'
   },
   recordingContainer: {
     display: 'flex',
@@ -127,6 +155,7 @@ const styles = {
     borderRadius: '10px',
     height: 'auto'
   },
+  
 };
 
 export default StartPage;

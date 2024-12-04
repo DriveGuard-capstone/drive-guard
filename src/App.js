@@ -12,6 +12,7 @@ import DriveHabit from './pages/DriveHabit';
 import MyPage from './pages/MyPage';
 import SetupPage from './pages/SetupPage';
 import TeamPage from './pages/TeamPage';
+import GuidePageHome from './pages/GuidePageHome'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path='/mypage' element={<MyPage />}/>
         <Route path='/setup' element={<SetupPage/>}></Route>
         <Route path='/team' element={<TeamPage/>}></Route>
+        <Route path='/guide-home' element={<GuidePageHome/>}></Route>
       </Routes>
 
     </div>

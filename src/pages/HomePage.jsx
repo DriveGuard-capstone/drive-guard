@@ -33,7 +33,7 @@ const HomePage = () => {
     }
 
     const applicationClick = () => {
-        navigate('/guide'); 
+        navigate('/guide-home'); 
     };
 
     const handleMyPageClick = () => {
@@ -122,7 +122,8 @@ const HomePage = () => {
             <div style={{
                     ...styles.menuBar, // 메뉴바 사라지고 생기는 애니메이션
                     transform: showMenuBar ? 'translateY(0)' : 'translateY(100%)',
-                    transition: 'transform 0.3s ease'
+                    transition: 'transform 0.3s ease',
+                    boxShadow: '0px -2px 4px rgba(0, 0, 0, 0.2)',
                 }}>
                     {/* <div style={styles.line}></div> */}
                     <div style={styles.buttonContainer}>
@@ -145,12 +146,11 @@ const HomePage = () => {
                     onClick={handleSetupButtonClick}></button>
                     </div>
                 
-                <ul style={{ listStyle: 'none', padding: '20px' }}>
-                    <li style={styles.mainText}>DMA Project</li>
-                    <li style={styles.secondText}></li>
+                <ul style={{ listStyle: 'none', padding: '20px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', }}>
+                    
                     
                 </ul>
-                <div style={styles.line}></div>
+                
                 <div style={styles.noticeButtonContainer}>
                             <button style={styles.firstNoticeButton} onClick={applicationClick}>⚬ 애플리케이션 소개 〉 </button>
                             <button style={styles.secondNoticeButton} onClick={handleTeamButtonClick}>⚬ 프로젝트 팀 소개 〉 </button>
