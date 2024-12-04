@@ -1,0 +1,135 @@
+.mypage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.background1 {
+  width: 100%;
+  height: 40vh;
+  background-color: #aee1d3;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.left-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-image: url("../ms_image/left_icon.png");
+  background-position: center;
+  background-size: cover;
+  background-color: transparent;
+  margin-left: 20px;
+}
+
+.title {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 70px;
+  text-align: center;
+  font-size: 24px;
+  color: #ffffff; /* 텍스트 색상: 흰색 */
+}
+
+.profile-container {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.img-container {
+  width: 100%;
+  height: 100%;
+  margin-top: 3rem;
+}
+
+.icon-style {
+  width: 100%;
+  height: 80%;
+  color: #8a8c8e;
+}
+
+.profile-name {
+    display: flex;
+    justify-content: center;
+}
+
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f4f8;
+    height: 60vh;
+    width: 100%;
+  }
+  
+ 
+  .info-row {
+    display: flex;
+    gap: 1rem; 
+    margin-bottom: 2rem;
+  }
+  
+  .alert-count-container,
+  .drive-status-container,
+  .notAlert-day-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 160px;
+    height: 120px;
+    transform: translateY(20px); 
+    animation: slideUp 0.6s ease-out forwards; 
+  }
+
+  .alert-count-container h2,
+  .drive-status-container h2,
+  .notAlert-day-container h2 {
+    font-size: 21px;
+  }
+
+  .alert-count-container h3,
+  .drive-status-container h3,
+  .notAlert-day-container h3 {
+    font-size: 18px;
+  }
+  
+  
+
+  .alert-count-container {
+    animation-delay: 0.2s; 
+  }
+  .drive-status-container {
+    animation-delay: 0.4s; 
+  }
+  .notAlert-day-container {
+    animation-delay: 0.6s; 
+  }
+  
+  @keyframes slideUp {
+    0% {
+      transform: translateY(20px); 
+      opacity: 0; 
+    }
+    100% {
+      transform: translateY(0); 
+      opacity: 1; 
+    }
+  }
