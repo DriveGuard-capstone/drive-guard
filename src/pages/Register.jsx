@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../css/Register.css";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -17,26 +18,37 @@ const Register = () => {
   const goToHome = () => {
     navigate("/main");
   };
-  const goToLogin = () => {
-    navigate("/login");
-  };
 
   // Email 중복체크
-  const checkEmailDuplication = () => {
-    // 예제용
-    const existingEmails = ["test@trst.com"];
-    if (existingEmails.includes(email)) {
-      setEmailError("이미 사용 중인 이메일입니다.");
+  const checkEmailDuplication = async () => {
+    if (!email.includes("@")) {
+      setEmailError("유효한 이메일 주소를 입력하세요.");
       return false;
+    }
 
-    } else {
-      setEmailError("");
-      return true;
+    try {
+      const response = await fetch("http://localhost:5000/api/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const result = await response.json();
+
+      if (result.exists) {
+        setEmailError("이미 사용 중인 이메일입니다.");
+        return false;
+      } else {
+        setEmailError("");
+        return true;
+      }
+    } catch (error) {
+      setEmailError("이메일 중복 체크에 실패했습니다.");
+      return false;
     }
   };
 
   const validatePassword = () => {
-    const passwordCriteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordCriteria = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
     if (!passwordCriteria.test(password)) {
       setPasswordError(
         "비밀번호는 8자 이상, 대소문자 및 숫자를 포함해야 합니다."
@@ -51,14 +63,29 @@ const Register = () => {
     }
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    const isEmailValid = checkEmailDuplication();
+    const isEmailValid = await checkEmailDuplication();
     const isPasswordValid = validatePassword();
 
-    if (isEmailValid && !isPasswordValid) {
-      alert("회원가입 성공!");
-      navigate("/login");
+    if (!isEmailValid || !isPasswordValid) {
+      return; // 유효성 검사가 실패하면 진행하지 않음
+    }
+
+    try {
+      if (password !== confirmPassword) {
+        throw new Error("패스워드가 일치하지 않습니다 다시 입력해주세요.");
+      }
+
+      const response = await api.post("/user", { name, email, password });
+      console.log("rrrr", response);
+
+      if (response.status === 200) {
+        alert("회원가입 성공");
+        navigate("/login");
+      }
+    } catch (error) {
+      setPasswordError(error.message);
     }
   };
 
@@ -88,7 +115,7 @@ const Register = () => {
               onBlur={checkEmailDuplication}
               required
             />
-            {emailError && <p className="error-text">{emailError}</p>}
+            {emailError && <p style={{ color: "red" }}>{emailError}</p>}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -112,6 +139,7 @@ const Register = () => {
               onBlur={validatePassword}
               required
             />
+            {passwordError && <p style={{ color: "Red" }}>{passwordError} </p>}
           </Form.Group>
 
           <div className="registerBtn-container">
