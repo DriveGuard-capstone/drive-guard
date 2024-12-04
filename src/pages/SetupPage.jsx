@@ -140,6 +140,7 @@ const styles = {
         // justifyContent: 'space-between',
         width: '100%',
         
+        
     },
     leftButton: {
         width: '40px',
@@ -154,14 +155,13 @@ const styles = {
     setupContainer: {
         display: 'flex',
         width: '100%',
-        height: '80%',
+        height: '70%',
         flexDirection: 'column',
         border: 'none',
         borderRadius: '20px',
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
-        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.8)',
-        
+        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.5)',
     },
     title: {
         marginTop: '10px',
@@ -240,7 +240,7 @@ const styles = {
     },
     applicationContainer: {
         position: 'absolute', // 고정 위치
-        bottom: '70px', // 화면 아래에서 약간 띄움
+        bottom: '130px', // 화면 아래에서 약간 띄움
         left: '50%', // 가로 가운데 정렬
         width: '100%',
         transform: 'translateX(-50%)', // 가로 중앙 정렬 보정
@@ -254,36 +254,41 @@ const styles = {
         fontSize: '13px',
     },
     buttonContainer: {
-        display: 'flex', // Flexbox 사용
-        justifyContent: 'center', // 수평 가운데 정렬
-        alignItems: 'center', // 수직 가운데 정렬
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
         width: '100%',
         height: '40px',
         flexDirection: 'row', // 가로 방향으로 나열
         gap: '10px', // 버튼 간 간격
-        marginTop: '10px',
+        marginTop: '40px',
     },
+    
     setupButton: {
-        width: '70px',
-        height: '40px',
-        backgroundColor: '#B2CCFF',
-        marginTop: '15px',
+        padding: '10px 15px',
+        backgroundColor: '#E6E6E6',
+        color: 'black',
+        border: 'none',
+        borderRadius: '5px',
         textAlign: 'center',
-        display: 'flex', // 플렉스박스 사용
-        alignItems: 'center', // 수직 중앙 정렬
-        justifyContent: 'center', // 수평 중앙 정렬
-        fontWeight: 'bold',
+        cursor: 'pointer',
+        width: '45%',
+        fontSize: '18px',
+        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+        backgroundColor: '#ffffff',
     },
     cleanButton: {
-        width: '70px',
-        height: '40px',
-        backgroundColor: '#B2CCFF',
-        marginTop: '15px',
+        padding: '10px 15px',
+        backgroundColor: '#E6E6E6',
+        color: 'black',
+        border: 'none',
+        borderRadius: '5px',
         textAlign: 'center',
-        display: 'flex', // 플렉스박스 사용
-        alignItems: 'center', // 수직 중앙 정렬
-        justifyContent: 'center', // 수평 중앙 정렬
-        fontWeight: 'bold',
+        cursor: 'pointer',
+        width: '45%',
+        fontSize: '18px',
+        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+        backgroundColor: '#ffffff',
     },
 };
 
