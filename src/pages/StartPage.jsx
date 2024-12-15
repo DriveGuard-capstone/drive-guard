@@ -1,13 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cameraButtonImage from '../ms_image/cameraButtonImage.png';
 import setup_icon from '../ms_image/setup_icon.png';
 import { useNavigate } from 'react-router-dom'; 
-import left_icon from '../ms_image/left_icon.png'
+import left_icon from '../ms_image/left_icon.png';
 
 const StartPage = () => {
   const videoRef = useRef(null);
   const [isMonitoring, setIsMonitoring] = useState(false);
-  const [stream, setStream] = useState(null); // 스트림을 별도로 상태로 관리
+  const imageCaptureRef = useRef(null);
+  const [stream, setStream] = useState(null); 
+  const socketRef = useRef(null);
+  const [warningMessage, setWarningMessage] = useState(null); // 경고 메시지 상태
+
+  // 웹소켓 서버 주소
+  const ws_url = "ws://127.0.0.1:8000/ws/video/";
 
   const navigate = useNavigate();
   
@@ -17,27 +23,109 @@ const StartPage = () => {
   const handleLeftButtonClick = () => {
     navigate(-1)
   }
-  
 
   const toggleMonitoring = async () => {
     if (isMonitoring) {
       // 카메라 종료
       if (stream) {
         const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
+        tracks.forEach((track) => {
+          if (track.readyState === 'live') {
+            track.stop(); // 활성화된 트랙만 종료
+          }
+        });
         setStream(null); // 스트림을 null로 설정
       }
-      videoRef.current.srcObject = null; // 카메라 실행중 버튼을 눌러 종료하면 비디오 요소에서 스트림 제거
+      if (videoRef.current) {
+        videoRef.current.srcObject = null; // 비디오 요소에서 스트림 제거
+      }
       setIsMonitoring(false);
+  
+      // WebSocket 연결 종료
+      if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+        socketRef.current.close();
+      }
+  
+      // ImageCapture 해제
+      if (imageCaptureRef.current) {
+        imageCaptureRef.current = null;
+      }
+  
+      // 기존 interval 클리어
+      clearInterval(window.monitoringInterval);
+      return;
     } else {
-      // 카메라 시작
       try {
         const newStream = await navigator.mediaDevices.getUserMedia({ video: true });
         videoRef.current.srcObject = newStream;
-        setStream(newStream); // 새로운 스트림을 상태에 저장
+        setStream(newStream); // 새로운 스트림 저장
         setIsMonitoring(true);
+  
+        // WebSocket 연결
+        if (!socketRef.current || socketRef.current.readyState === WebSocket.CLOSED) {
+          socketRef.current = new WebSocket(ws_url);
+        }
+  
+        socketRef.current.onopen = () => {
+          console.log("WebSocket 연결 완료");
+        };
+  
+        socketRef.current.onerror = (error) => {
+          console.error("WebSocket 연결 에러:", error);
+        };
+  
+        socketRef.current.onclose = () => {
+          console.log("WebSocket 연결 종료");
+        };
+  
+        socketRef.current.onmessage = (event) => {
+          const data = JSON.parse(event.data);
+          console.log("WebSocket 메시지 수신:", data);
+  
+          if (data.result === "No seatbelt detected") {
+            setWarningMessage("경고! 안전벨트 미착용!");
+          } else if (data.result === "Drowsy driving detected") {
+            setWarningMessage("경고! 졸음운전 감지!");
+          } else {
+            setWarningMessage(null);
+          }
+        };
+  
+        // 실시간 영상 전송
+        const videoTrack = newStream.getVideoTracks()[0];
+        if (videoTrack) {
+          const imageCapture = new ImageCapture(videoTrack);
+          imageCaptureRef.current = imageCapture;
+        } else {
+          console.error("No video track");
+          setIsMonitoring(false);
+          return;
+        }
+  
+        // 모니터링 종료 후 재시작할때.. 이전 interval 클리어 후 새로운 interval 생성
+        clearInterval(window.monitoringInterval);
+        window.monitoringInterval = setInterval(async () => {
+          if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+            try {
+              const photo = await imageCaptureRef.current.grabFrame();
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              canvas.width = photo.width;
+              canvas.height = photo.height;
+              ctx.drawImage(photo, 0, 0);
+  
+              canvas.toBlob((blob) => {
+                if (socketRef.current.readyState === WebSocket.OPEN) {
+                  socketRef.current.send(blob); // 바이너리 데이터 전송
+                }
+              }, 'image/jpeg');
+            } catch (error) {
+              console.error("Frame capture error:", error);
+            }
+          }
+        }, 100); // 100ms마다 한 프레임 전송
       } catch (error) {
-        console.error('Camera Error', error);
+        console.error("Camera Error", error);
       }
     }
   };
@@ -47,7 +135,7 @@ const StartPage = () => {
 
       <div style={styles.topContainer}>
         <div style={styles.leftButton} onClick={handleLeftButtonClick}></div>
-        <image style={styles.setupButton} onClick={handleSetupButtonClick}></image>
+        <img style={styles.setupButton} onClick={handleSetupButtonClick} src={setup_icon} alt="Setup"></img>
       </div>
       
       {isMonitoring && (
@@ -65,6 +153,14 @@ const StartPage = () => {
         />
       </button>
       <video ref={videoRef} autoPlay style={styles.video} />
+
+      {/* 경고 메시지 표시 */}
+      {warningMessage && (
+        <div style={styles.warningContainer}>
+          <p style={styles.warningText}>{warningMessage}</p>
+        </div>
+      )}
+
     </div>
   );
 };
@@ -82,7 +178,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    // justifyContent: 'space-between',
     width: '100%',
     height: '60px',
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
@@ -146,16 +241,26 @@ const styles = {
     height: '10px', 
     borderRadius: '50%', 
     backgroundColor: 'red', 
-    marginRight: '5px', // 원과 텍스트 사이의 간격
+    marginRight: '5px', 
+    marginTop: '3px',
   },
   video: {
-    marginTop: '20px',
     width: '80%',
-    maxWidth: '500px',
+    height: 'auto',
+    border: '2px solid #000080',
     borderRadius: '10px',
-    height: 'auto'
+    marginTop: '10px',
   },
-  
+  warningContainer: {
+    backgroundColor: '#ffcccb',
+    padding: '5px',
+    borderRadius: '5px',
+    marginTop: '10px',
+  },
+  warningText: {
+    color: '#ff0000',
+    fontWeight: 'bold',
+  }
 };
 
 export default StartPage;
