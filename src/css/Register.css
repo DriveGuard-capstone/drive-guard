@@ -10,6 +10,20 @@
    align-items: center;
 }
 
+.register-title {
+    font-size: 32px; /* 제목 크기를 적당히 크게 설정 */
+    font-weight: bold; /* 제목을 강조 */
+    color: #333; /* 어두운 회색으로 텍스트 색상 설정 */
+    text-align: center; /* 중앙 정렬 */
+    margin-top: 1rem; /* 상단 여백을 추가하여 위쪽으로 배치 */
+    margin-bottom: 3rem; /* 아래쪽 여백 추가 */
+    letter-spacing: 1px; /* 문자 간격을 약간 넓게 설정 */
+    background-color:#f8d7da; /* 배경색을 연한 회색으로 설정 */
+    padding: 10px; /* 배경 안의 여백을 추가 */
+    border-radius: 8px; /* 모서리를 둥글게 처리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+  }
+
 .registerBtn-container{
     display:flex; 
     justify-content:center; 
@@ -18,3 +32,31 @@
     gap:1rem; 
     margin-top:2rem;
 }
+
+.register-button {
+    width: 50%;
+    padding: 15px;
+    font-size: 14px; 
+    font-weight: bold; 
+    border-radius: 8px;
+    border: 2px solid #aaa; 
+    background-color: #f5f5f5; 
+    color: #444; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase; 
+  }
+  
+ 
+  .register-button:hover {
+    background-color: #e0e0e0; 
+    border: 2px solid #bbb; 
+  }
+  
+  .register-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
