@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import "../../css/MainPage.css"
 
 const MainLogin = () => {
   const navigate = useNavigate();
@@ -16,10 +17,10 @@ const MainLogin = () => {
   return (
     <div>
       <div className="login-container" >
-        <Button variant="info" style={{ width: "300px" }} onClick={goToLogin}>
+        <Button className="custom-button" style={{ width: "300px" }} onClick={goToLogin}>
           Login
         </Button>
-        <Button variant="info" style={{ width: "300px" }} onClick={goToRegister}>
+        <Button className="custom-button" style={{ width: "300px" }} onClick={goToRegister}>
           sign up
         </Button>{" "}
       </div>

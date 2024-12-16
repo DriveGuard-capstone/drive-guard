@@ -93,7 +93,7 @@ const Register = () => {
     <div className="register-container">
       <div className="display-center">
         <Form className="login-box" onSubmit={handleRegister}>
-          <h1>회원가입</h1>
+          <h1 className="register-title">회원가입</h1>
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -143,10 +143,10 @@ const Register = () => {
           </Form.Group>
 
           <div className="registerBtn-container">
-            <Button className="button-primary" onClick={goToHome}>
+            <Button className="register-button" onClick={goToHome}>
               홈으로
             </Button>
-            <Button className="button-primary" type="submit">
+            <Button className="register-button" type="submit">
               회원가입
             </Button>
           </div>
